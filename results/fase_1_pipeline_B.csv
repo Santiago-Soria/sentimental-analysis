@@ -1,0 +1,7 @@
+pipeline,vectorizer,model,avg_f1_macro,std_f1_macro
+B (A + Stopwords),Binary,MultinomialNB,0.2859463550138654,0.008175420819072765
+B (A + Stopwords),Binary,LogisticRegression,0.4458514691209256,0.012892640207072899
+B (A + Stopwords),Frequency,MultinomialNB,0.31596259751545475,0.007382384253111543
+B (A + Stopwords),Frequency,LogisticRegression,0.4486256901841533,0.01380275584234591
+B (A + Stopwords),TF-IDF,MultinomialNB,0.16388757288714895,0.00037985079747351235
+B (A + Stopwords),TF-IDF,LogisticRegression,0.3675633774331155,0.007968878118056353
