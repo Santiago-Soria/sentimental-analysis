@@ -1,0 +1,22 @@
+Folder PATH listing for volume Windows
+Volume serial number is 6254-705E
+C:.
+¦   .gitignore
+¦   tree.txt
+¦   
++---data
+¦   +---processed
+¦   ¦       test.csv
+¦   ¦       train.csv
+¦   ¦       
+¦   +---raw
+¦           Rest_Mex_2022.xlsx
+¦           
++---results
+¦       fase_1_pipeline_B.csv
+¦       
++---src
+        normalization_functions.py
+        run_pipelineB.ipynb
+        split_data.py
+        
