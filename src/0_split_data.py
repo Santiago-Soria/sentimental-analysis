@@ -2,10 +2,17 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import os
 
-# --- Configuración de Rutas ---
-# Asume que el corpus crudo está en data/raw/
-RAW_CORPUS_PATH = os.path.join("..", "data", "raw", "Rest_Mex_2022.xlsx")
-PROCESSED_PATH = os.path.join("..", "data", "processed")
+# --- Configuración de Rutas (Robusta) ---
+# Obtiene la ruta absoluta del script actual (ej. .../src/0_split_data.py)
+SCRIPT_PATH = os.path.abspath(__file__)
+# Sube un nivel al directorio 'src'
+SCRIPT_DIR = os.path.dirname(SCRIPT_PATH)
+# Sube otro nivel al directorio raíz del proyecto (ej. .../sentimental-analysis)
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR) 
+
+# Ahora construye las rutas desde la raíz del proyecto
+RAW_CORPUS_PATH = os.path.join(PROJECT_ROOT, "data", "raw", "Rest_Mex_2022.xlsx")
+PROCESSED_PATH = os.path.join(PROJECT_ROOT, "data", "processed")
 TRAIN_PATH = os.path.join(PROCESSED_PATH, "train.csv")
 TEST_PATH = os.path.join(PROCESSED_PATH, "test.csv")
 
@@ -31,19 +38,22 @@ def main():
         df['text'] = df['text'].str.strip()
         
         # 3. Definir X (features) e y (target)
+        # Elimina filas donde el texto o la polaridad sean nulos
         df.dropna(subset=['text', 'Polarity'], inplace=True)
+        # Filtra textos vacíos que pudieron quedar
+        df = df[df['text'] != '']
         
         X = df['text'] # features
         y = df['Polarity'] # class
         
         print(f"Datos limpios listos para dividir: {len(X)} filas.")
 
-        # 4. Crear la división 80/20 
+        # 4. Crear la división 80/20
         X_train, X_test, y_train, y_test = train_test_split(
             X, y,
             test_size=0.20,
-            random_state=0,    # Fijo para reproducibilidad 
-            shuffle=True       # Mezclar los datos 
+            random_state=0,      # Fijo para reproducibilidad
+            shuffle=True         # Mezclar los datos
         )
         
         print(f"Tamaño de Entrenamiento: {len(X_train)} (80%)")
@@ -61,7 +71,7 @@ def main():
 
     except FileNotFoundError:
         print(f"Error: No se encontró el archivo {RAW_CORPUS_PATH}")
-        print("Asegúrate de que el corpus 'Rest_Mex_2022.csv' esté en la carpeta 'data/raw/'.")
+        print(f"Asegúrate de que el corpus '{os.path.basename(RAW_CORPUS_PATH)}' esté en la carpeta 'data/raw/'.")
 
 if __name__ == "__main__":
     main()
