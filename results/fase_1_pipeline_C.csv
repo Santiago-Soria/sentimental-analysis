@@ -1,0 +1,7 @@
+pipeline,vectorizer,model,avg_f1_macro,std_f1_macro
+C (B + Lematización),Binary,MultinomialNB,0.2859463550138654,0.008175420819072765
+C (B + Lematización),Binary,LogisticRegression,0.4474611031608381,0.012567496812373498
+C (B + Lematización),Frequency,MultinomialNB,0.31596259751545475,0.007382384253111543
+C (B + Lematización),Frequency,LogisticRegression,0.4481717197489248,0.012176955221384182
+C (B + Lematización),TF-IDF,MultinomialNB,0.16388757288714895,0.00037985079747351235
+C (B + Lematización),TF-IDF,LogisticRegression,0.3675633774331155,0.007968878118056353
