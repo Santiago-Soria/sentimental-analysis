@@ -11,6 +11,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_validate
+from normalization_functions import pipeline_d_normalize
 
 # Recurso nltk
 try:
@@ -74,9 +75,9 @@ def main():
 
     # Definimos las 3 representaciones
     representaciones = {
-        "Binaria": CountVectorizer(preprocessor=preprocesador_pipeline_d, binary=True),
-        "Frecuencia": CountVectorizer(preprocessor=preprocesador_pipeline_d, binary=False),
-        "TF-IDF": TfidfVectorizer(preprocessor=preprocesador_pipeline_d)
+        "Binaria": CountVectorizer(preprocessor=pipeline_d_normalize, binary=True),
+        "Frecuencia": CountVectorizer(preprocessor=pipeline_d_normalize, binary=False),
+        "TF-IDF": TfidfVectorizer(preprocessor=pipeline_d_normalize)
     }
 
     # Definimos los 2 modelos

@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 import warnings
 import spacy
 
+
 # --- Configuración Inicial (Descarga de recursos) ---
 try:
     # Descargar la lista de stopwords en español
@@ -106,6 +107,45 @@ def pipeline_c_normalize(text: str) -> str:
     
     return " ".join(lemmatized_words)
 
+# --- Recursos para Pipeline D ---
+# Para el manejo de negación, no queremos eliminar palabras como "no" o "nunca".
+# Creamos una lista de stopwords personalizada que excluye las negaciones comunes.
+NEGATION_TERMS = {"no", "ni", "nunca", "tampoco", "nada", "nadie"}
+STOPWORDS_ES_NO_NEG = STOPWORDS_ES - NEGATION_TERMS
+
+def pipeline_d_normalize(text: str) -> str:
+    """
+    Pipeline D: Avanzado (Manejo de Negación ).
+    1. Aplica la limpieza básica del Pipeline A.
+    2. Implementa un etiquetado simple de negación:
+       - Cuando encuentra una palabra de negación (ej. "no"),
+         etiqueta la siguiente palabra con el prefijo "NO_".
+       - Ejemplo: "no es bueno" -> "no NO_es NO_bueno"
+    3. Elimina las stopwords usando la lista personalizada (que conserva las negaciones).
+    """
+    # 1. Aplicar Limpieza Básica
+    cleaned_text = pipeline_a_normalize(text)
+    words = cleaned_text.split()
+    
+    tagged_words = []
+    negate_next_n_words = 0 # Cuántas palabras siguientes etiquetar
+
+    for word in words:
+        if word in NEGATION_TERMS:
+            negate_next_n_words = 3 # Etiquetar las siguientes 3 palabras
+            tagged_words.append(word) # Conservar la palabra de negación
+        
+        elif negate_next_n_words > 0:
+            tagged_words.append(f"NO_{word}")
+            negate_next_n_words -= 1
+        
+        else:
+            tagged_words.append(word)
+
+    # 3. Eliminar stopwords usando la lista personalizada
+    filtered_words = [word for word in tagged_words if word not in STOPWORDS_ES_NO_NEG]
+    
+    return " ".join(filtered_words)
 
 # --- Bloque de Prueba ---
 if __name__ == "__main__":
