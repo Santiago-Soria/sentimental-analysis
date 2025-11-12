@@ -1,0 +1,2 @@
+model,pipeline_base,best_avg_f1_macro,best_params
+SMOTE + SVM,D (Negación) + Binary,0.35571848422876295,"{'classifier__C': 1, 'classifier__kernel': 'linear'}"
