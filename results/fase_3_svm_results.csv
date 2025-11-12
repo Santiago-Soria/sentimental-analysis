@@ -1,0 +1,2 @@
+model,pipeline_base,best_avg_f1_macro,best_params
+LinearSVC (SVM),D (Negación) + FeatureUnion (Binary + Lexicons),0.4456895915725358,{'classifier__C': 0.1}
