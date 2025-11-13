@@ -1,2 +1,2 @@
 model,pipeline_base,best_avg_f1_macro,best_params
-MLPClassifier,D (Negación) + Frequency,0.4341250915398721,"{'classifier__activation': 'relu', 'classifier__alpha': 0.01, 'classifier__hidden_layer_sizes': (50,)}"
+MLPClassifier,D (Negación) + Binary + Lexicons,0.4354183745054983,"{'classifier__activation': 'relu', 'classifier__alpha': 0.01, 'classifier__hidden_layer_sizes': (100,), 'classifier__solver': 'adam'}"
